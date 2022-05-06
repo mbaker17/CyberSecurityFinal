@@ -1,0 +1,202 @@
+<!-- Button trigger modal -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <button type="button" class="btn btn-outline-secondary m-2" data-toggle="modal" data-target="#exampleModal"
+        (click)="addClick()" data-backdrop="static" data-keyboard="false">
+        Add Tool
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeClick()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-edit-tool [tool]="tool" *ngIf="ActivateAddEditToolComp">
+        </app-add-edit-tool>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>
+        <div class="d-flex flex-row">
+          <input [(ngModel)]="ToolIdFilter" class="form-control" (keyup)="FilterFn()" placeholder="Filter">
+
+          <button type="button" class="btn btn-light" (click)="sortResult('ToolId',true)">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-square-fill" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z" />
+            </svg>
+          </button>
+          <button type="button" class="btn btn-light" (click)="sortResult('ToolId',false)">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up-square-fill" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 8.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z" />
+            </svg>
+          </button>
+
+        </div>
+
+        Tool Id
+      </th>
+      <th>
+        <div class="d-flex flex-row">
+          <input [(ngModel)]="ToolNameFilter" class="form-control" (keyup)="FilterFn()" placeholder="Filter">
+
+          <button type="button" class="btn btn-light" (click)="sortResult('ToolName',true)">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-square-fill" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z" />
+            </svg>
+          </button>
+          <button type="button" class="btn btn-light" (click)="sortResult('ToolName',false)">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up-square-fill" fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 8.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z" />
+            </svg>
+          </button>
+
+        </div>
+        Tool Name
+      </th>
+      <th>Category</th>
+      <th>Notes</th>
+      <th>Link</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dataItem of ToolList">
+      <td>{{dataItem.ToolId}}</td>
+      <td>{{dataItem.ToolName}}</td>
+      <td>{{dataItem.Category}}</td>
+      <td>{{dataItem.ToolNotes}}</td>
+      <td>{{dataItem.ToolLink}}</td>
+      <td>
+        <button type="button" class="btn btn-light mr-1" data-toggle="modal" data-target="#exampleModal"
+          (click)="editClick(dataItem)" data-backdrop="static" data-keyboard="false">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+            <path fill-rule="evenodd"
+              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+          </svg>
+        </button>
+        <button type="button" class="btn btn-light mr-1" (click)="deleteClick(dataItem)">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+          </svg>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table> -->
+
+
+<!-- <section class="boxes">
+  <div class="box" *ngFor="let dataItem of ToolList">
+    <div class="title">
+      <h1>{{dataItem.ToolName}}</h1>
+    </div>
+    <div class="body">
+      <h3>{{dataItem.ToolLink}}</h3>
+      <p>{{dataItem.ToolNotes}}</p>
+    </div>
+
+  </div>
+</section> -->
+
+
+
+
+<main role="main">
+
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-4" *ngFor="let dataItem of ToolList">
+          <div class="card mb-4 box-shadow">
+            <div class="dataItemTitle">
+              <h1>{{dataItem.ToolName}}</h1>
+              <p>{{dataItem.ToolLink}}</p>
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{dataItem.ToolNotes}}</p>
+              <!-- <app-commands></app-commands> -->
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-light mr-1" data-toggle="modal" data-target="#exampleModal"
+                    (click)="editClick(dataItem)" data-backdrop="static" data-keyboard="false">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                      <path fill-rule="evenodd"
+                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </svg>
+                  </button>
+                  <button type="button" class="btn btn-light mr-1" (click)="deleteClick(dataItem)">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+                    </svg>
+                  </button>
+                </div>
+                <small class="text-muted">{{dataItem.Category}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-md-4">
+          <div class="card mb-4 box-shadow">
+            <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+      </div>
+    </div>
+  </div>
+
+</main>
